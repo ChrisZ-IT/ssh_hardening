@@ -158,7 +158,7 @@
 
 - name: Ensure SSH Banner is set
   ansible.builtin.copy:
-    src: files/issue.net
+    src: "{{ role_path }}/files/issue.net"
     dest: /etc/issue.net
     owner: root
     group: root
