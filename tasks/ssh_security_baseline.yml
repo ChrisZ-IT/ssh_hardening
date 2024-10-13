@@ -195,3 +195,8 @@
 #    mv /tmp/moduli /etc/ssh/moduli
 #   notify:
 #     - Restart_sshd
+
+- name: Restart_sshd
+  ansible.builtin.systemd:
+    name: sshd
+    state: restarted
