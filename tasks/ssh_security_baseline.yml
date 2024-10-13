@@ -5,7 +5,7 @@
     line: 'AllowUsers {{ new_user_username }}'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Synchronize authorized_keys
   ansible.builtin.copy:
@@ -21,7 +21,7 @@
     line: 'KexAlgorithms diffie-hellman-group-exchange-sha256'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH Ciphers
   ansible.builtin.lineinfile:
@@ -29,7 +29,7 @@
     line: 'Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,aes192-cbc,aes256-cbc'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH MACs
   ansible.builtin.lineinfile:
@@ -37,7 +37,7 @@
     line: 'MACs hmac-sha2-256,hmac-sha2-512'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH loglevel to verbose
   ansible.builtin.lineinfile:
@@ -46,7 +46,7 @@
     line: 'LogLevel VERBOSE'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 # - name: Set log sftp level file access
 #   ansible.builtin.lineinfile:
@@ -55,7 +55,7 @@
 #    line: 'Subsystem sftp /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO'
 #    state: present
 #   notify:
-#     - Restart_sshd
+#     - Restart sshd
 
 - name: Disable SSH root login
   ansible.builtin.lineinfile:
@@ -64,7 +64,7 @@
     line: 'PermitRootLogin no'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Disable SSH password authentication
   ansible.builtin.lineinfile:
@@ -73,7 +73,7 @@
     line: 'PasswordAuthentication no'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Disable SSH Empty Passwords
   ansible.builtin.lineinfile:
@@ -82,7 +82,7 @@
     line: 'PermitEmptyPasswords no'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: SSH Login Grace Time
   ansible.builtin.lineinfile:
@@ -91,7 +91,7 @@
     line: 'LoginGraceTime 20s'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: SSH Max Auth Tries
   ansible.builtin.lineinfile:
@@ -100,7 +100,7 @@
     line: 'MaxAuthTries 3'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: SSH Max Sessions
   ansible.builtin.lineinfile:
@@ -109,7 +109,7 @@
     line: 'MaxSessions 3'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: SSH Public Key Auth
   ansible.builtin.lineinfile:
@@ -118,7 +118,7 @@
     line: 'PubkeyAuthentication yes'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: SSH AuthorizedKeysFile location
   ansible.builtin.lineinfile:
@@ -127,7 +127,7 @@
     line: "AuthorizedKeysFile      .ssh/authorized_keys"
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Disable SSH PAM
   ansible.builtin.lineinfile:
@@ -136,7 +136,7 @@
     line: 'UsePAM no'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH Client AliveInterval
   ansible.builtin.lineinfile:
@@ -145,7 +145,7 @@
     line: 'ClientAliveInterval 180'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH Banner
   ansible.builtin.lineinfile:
@@ -154,7 +154,7 @@
     line: 'Banner /etc/issue.net'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Ensure SSH Banner is set
   ansible.builtin.copy:
@@ -170,7 +170,7 @@
     line: 'UsePrivilegeSeparation sandbox'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 - name: Set SSH AuthenticationMethods
   ansible.builtin.lineinfile:
@@ -178,7 +178,7 @@
     line: 'AuthenticationMethods publickey'
     state: present
   notify:
-    - Restart_sshd
+    - Restart sshd
 
 # - name: Setup alternate SSHd port
 #   ansible.builtin.lineinfile:
@@ -187,16 +187,11 @@
 #     line: 'Port 443'
 #     state: present
 #   notify:
-#     - Restart_sshd
+#     - Restart sshd
 
 # - name: Disable SSH short modulis for DH
 #   ansible.builtin.shell: |-
 #    awk '$5 >= 3071' /etc/ssh/moduli > /tmp/moduli &&
 #    mv /tmp/moduli /etc/ssh/moduli
 #   notify:
-#     - Restart_sshd
-
-- name: Restart_sshd
-  ansible.builtin.systemd:
-    name: sshd
-    state: restarted
+#     - Restart sshd
