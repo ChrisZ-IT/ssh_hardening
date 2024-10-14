@@ -1,2 +1,3 @@
 ---
 # defaults file for ssh_hardening
+issue_msg_path: "{{ role_path }}/files/issue.net"
